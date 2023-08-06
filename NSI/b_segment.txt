@@ -1,0 +1,8 @@
+b = (x_y_z_t_ + x_y_z_t) + (x_y_zt_ + x_y_zt) + x_yz_t_ + x_yzt + (xy_z_t_ + xy_z_t) + xy_zt_ + (xyz_t + xyz_t_)
+b = x_y_z_(t_+t) + x_y_z(t_+t) + xy_z_(t+t_) + xyz_(t+t_) + x_yz_t_ + x_yzt + xy_zt_
+b = (x_y_z_ + x_y_z) + (xy_z_ + xyz_) + x_yz_t_ + x_yzt + xy_zt_
+b = x_y_(z_+z) + xz_(y+y_) + x_yz_t_ + x_yzt + xy_zt_
+b = x_y_ + (xz_) + x_yz_t_ + (x_yzt) + xy_zt_
+b = xz_(1+yt) + x_y_ + x_yz_t_ + xy_zt_
+b = xyz_t + x_y_ + y(x+z+t)_ + xz(y+t)_
+
