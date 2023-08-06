@@ -1,17 +1,13 @@
 def Hanoi(n):
-    if n > 0:
-        Hanoi(n-1)
     A = [n-i for i in range(n)]
     B, C = [], []
     Towers = [A,B,C]
     ShowTowers(Towers)
 
-    countMove = 0
+    Towers = MoveDisk1(Towers,n)
+    ShowTowers(Towers)
 
-    if C != [n-i for i in range(n)]:
-        Towers = MoveDisk1(Towers,n)
-        ShowTowers(Towers)
-        countMove += 1
+    countMove = 1
 
     while C != [n-i for i in range(n)]:
         Towers = Move(Towers)
@@ -27,7 +23,7 @@ def MoveDisk1(Towers,n):
             if n%2 == 0:
                 k = 1
             else:
-                k = 5
+                k = 2
             Towers[(i+k)%3].append(Towers[i].pop())
             return Towers
 
@@ -36,8 +32,8 @@ def Move(Towers):
         if Towers[i] != [] and Towers[i][-1] != 1:
             if (Towers[(i+1)%3] == [] or Towers[i][-1] < Towers[(i+1)%3][-1]):
                 k = 1
-            elif Towers[(i+5)%3] == [] or Towers[i][-1] < Towers[(i+5)%3][-1]:
-                k = 5
+            elif Towers[(i+2)%3] == [] or Towers[i][-1] < Towers[(i+2)%3][-1]:
+                k = 2
             else:
                 continue
             Towers[(i+k)%3].append(Towers[i].pop())
