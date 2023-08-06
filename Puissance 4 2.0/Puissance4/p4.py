@@ -65,7 +65,7 @@ class Board():
         for ligne in Ligne.list_inst_ligne:
             ligne.colonne = ["0"]*token_width
 
-    def display_board(colonne, player, lign=None, startime=0.1, color=""):
+    def display_board(colonne, player, lign=None, startime=0, color=""):
 
         # permet d'indiquer ou et qui a jouer le dernier coup
 
@@ -123,74 +123,53 @@ class Board():
         print(numero_colonne)
         time.sleep(startime)
         print(triangle)
-
 class Ia():
-
     # fonction principale
-
     def ia_move(ia):
-
         global player1, player2
-
         player1, player2 = player2, player1
-
         print("\n debug : priority "+ia)
-
         # verifie si l'ia peut empecher l'adversaire de gagner ou de gagner elle meme ou autre
-
         for win_loose in [ia,p1symb, p2symb] :
-
             #horizontale
-
             for lign in range(token_height):
                 for col in range((token_width+1)-token_win):
                     temp = Ligne.list_inst_ligne[lign].colonne[col:col+token_win]
                     if lign > 1 and gravity == True :
-                        if Ia.horizontal_top(temp, lign, col+1, win_loose, ia) or Ia.horizontal_middle(temp, lign, col+1, win_loose, ia) :
+                        if Ia.horizontal_middle(temp, lign, col+1, win_loose, ia) :
                             return
-                    if lign == 1 and gravity == True :
+                    if lign >= 1 and gravity == True :
                         if Ia.horizontal_middle(temp, lign, col+1, win_loose, ia) :
                             return
                     elif lign == 0 or gravity == False:
                         if Ia.horizontal_bot(temp, lign+1, col+1, win_loose, ia) :
                             return
-
             # verticale
-
             for lign in range((token_height+1)-token_win) :
                 for col in range(token_width) :
                     temp = [Ligne.list_inst_ligne[lign+x].colonne[col] for x in range(token_win)]
                     if Ia.vertical(temp, lign+1, col+1, win_loose, ia) :
                         return
-
             # diag droite
-
             for col in range((token_width+1)-token_win) :
                 for lign in range((token_height+1)-token_win):
                     temp = [Ligne.list_inst_ligne[lign+x].colonne[col+1*x] for x in range(token_win)]
                     if Ia.diag_right(temp, lign+1, col+1, win_loose, ia) :
                         return
-
             # gauche haut
-
             for col in range(token_win-1, token_width) :
                 for lign in range((token_height+1)-token_win):
                     temp = [Ligne.list_inst_ligne[lign+x].colonne[col-1*x] for x in range(token_win)]
                     if Ia.diag_left(temp, lign+1, col+1, win_loose, ia) :
                         return
-
         # permet de faire en sorte que les jeton sois plus concentres si un jeton est seul
-
         for win_loose in [p2symb, p1symb] :
             for lign in range(token_height):
                 for col in range(token_width-2):
                     temp = Ligne.list_inst_ligne[lign].colonne[col:col+3]
-
                     if Ia.nexto(temp, lign+1, col+1, win_loose, ia) :
                         return
-
         # sinon jouer aleatoirement
-
         col = randint(1,token_width)
         lign = randint(1,token_height)
         if gravity == False :
@@ -206,9 +185,7 @@ class Ia():
             else :
                 Token.place_token(col, ia)
                 return print("\ndebug : random grav")
-
     def horizontal_bot(temp, lign, col, win_loose, ia):
-
         if temp == [win_loose]*(token_win-1)+[emptysymb] :
             Token.place_token(col+(token_win-1), ia, lign)
             print("\ndebug : horizontale devant bas")
@@ -227,9 +204,8 @@ class Ia():
             return True
         else :
             return False
-
     def horizontal_middle(temp, lign, col, win_loose, ia):
-
+        print()
         if temp == [win_loose]*(token_win-1)+[emptysymb] and not Ligne.list_inst_ligne[lign-1].colonne[col-1+(token_win-1)] == emptysymb :
             Token.place_token(col+(token_win-1), ia)
             print("\ndebug : horizontale devant middle")
@@ -238,9 +214,10 @@ class Ia():
             Token.place_token(col, ia)
             print("\ndebug : horizontale derrière middle")
             return True
-        elif temp == [win_loose]*(token_win-2)+[emptysymb]+[win_loose] and not Ligne.list_inst_ligne[lign-1].colonne[col+(token_win-2)] == emptysymb :
+        elif temp == [win_loose]*(token_win-2)+[emptysymb]+[win_loose] and not Ligne.list_inst_ligne[lign-1].colonne[col-1+(token_win-2)] == emptysymb :
             Token.place_token(col+(token_win-2), ia)
             print("\ndebug : horizontale milieu + middle")
+            print(temp, lign, Ligne.list_inst_ligne[lign-1].colonne[col+(token_win-2)])
             return True
         elif temp == [win_loose]+[emptysymb]+[win_loose]*(token_win-2) and not Ligne.list_inst_ligne[lign-1].colonne[col+1] == emptysymb :
             Token.place_token(col+1, ia)
@@ -248,9 +225,7 @@ class Ia():
             return True
         else :
             return False
-
     def horizontal_top(temp, lign, col, win_loose, ia):
-
         if temp == [win_loose]*(token_win-1)+[emptysymb] and Ligne.list_inst_ligne[lign-2].colonne[col-1+token_win-1] == emptysymb  :
             Token.place_token(col+(token_win-1), ia)
             print("\ndebug : horizontale devant haut")
@@ -271,7 +246,6 @@ class Ia():
             return False
 
     def vertical(temp, lign, col, win_loose, ia):
-
         if temp == [win_loose]*(token_win-1)+[emptysymb] :
             Token.place_token(col, ia, lign+(token_win-1))
             print("\ndebug : vertical +")
@@ -290,9 +264,7 @@ class Ia():
             return True
         else :
             return False
-
     def diag_right(temp, lign, col, win_loose, ia):
-
         if temp == [win_loose]*(token_win-1)+[emptysymb] :
             if Ligne.list_inst_ligne[lign].colonne[col-1+(token_win-1)] == emptysymb :
                 Token.place_token(col+(token_win-1), ia, lign+(token_win-1))
@@ -311,9 +283,7 @@ class Ia():
                 Token.place_token(col+(token_win-2), ia, lign+(token_win-2))
                 print("\ndebug : droite middle + block/finish")
                 return True
-
             # droite bas
-
         elif temp == [emptysymb]+[win_loose]*(token_win-1) :
             Token.place_token(col, ia, lign)
             print("\ndebug : droite bas")
@@ -324,9 +294,7 @@ class Ia():
             return True
         else :
             return False
-
     def diag_left(temp, lign, col, win_loose, ia):
-
         if temp == [win_loose]*(token_win-1)+[emptysymb] :
             if Ligne.list_inst_ligne[lign].colonne[col-1-(token_win-1)] == emptysymb :
                 Token.place_token(col-(token_win-1), ia, lign+(token_win-1))
@@ -345,9 +313,7 @@ class Ia():
                 Token.place_token(col-(token_win-2), ia, lign+(token_win-2))
                 print("\ndebug : gauche middle + block/finish")
                 return True
-
             # gauche bas
-
         elif temp == [emptysymb]+[win_loose]*(token_win-1) :
             Token.place_token(col, ia, lign)
             print("\ndebug : gauche bas")
@@ -358,9 +324,7 @@ class Ia():
             return True
         else :
             return False
-
     def nexto(temp, lign, col, win_loose, ia):
-
         if temp == [emptysymb]+[win_loose]+[emptysymb] :
             rightleft = randint(0,1)
             if rightleft :
@@ -373,7 +337,6 @@ class Ia():
                 return True
         else :
             return False
-
 class User():
 
     def user_main(joueur):
