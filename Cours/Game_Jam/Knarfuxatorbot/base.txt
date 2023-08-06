@@ -1,0 +1,20 @@
+but nettoyer le plus de piece en un nombre d'action record :
+
+1 - classe room :
+          - propriété :
+                    - nombre de dechet dans la piece (généré aléatoirement)
+                    - taille de la piece
+                    - nom de la piece
+          - var :
+              - liste contenant les differentes piece
+
+
+2 - classe robot :
+          - propriété :
+                    - nom
+                    - vitesse
+
+          - methodes :
+                    - deplacement
+                    - recuperer dechets
+                    - vider le cache
