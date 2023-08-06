@@ -7,4 +7,3 @@ def hanoi(n,deb,fin,inter):
     return step
 
 
-hanoi(3,"A","C","B")
