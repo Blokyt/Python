@@ -1,6 +1,6 @@
 
 
-# module test
+# module TestFolder
 
 from random import *
 
@@ -124,7 +124,7 @@ class Board():
         time.sleep(startime)
         print(triangle)
 
-#test git
+#TestFolder git
 class Ia():
     # fonction principale
     def ia_move(ia):

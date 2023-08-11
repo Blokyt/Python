@@ -132,20 +132,20 @@ jeux(allumettes, allumettesrestantes, joueur);
 #
 #     if mode == "1" :
 #         game_mode = "+"
-#         test(game_mode, difficulty)
+#         TestFolder(game_mode, difficulty)
 #     elif mode == "2" :
 #         game_mode = "x"
-#         test(game_mode, difficulty)
+#         TestFolder(game_mode, difficulty)
 #     else :
 #         menu()
 #
-# def test(game_mode, difficulty) :
+# def TestFolder(game_mode, difficulty) :
 #     reponses = {}
 #     min = difficulty
 #     max = difficulty * 5
 #     i = 0
 #     bonnerep = 0
-#     n = int(input("Nombres de calculs durant ce test : "))
+#     n = int(input("Nombres de calculs durant ce TestFolder : "))
 #     if n == 0 :
 #         print("\nTricheur\n")
 #         n = 15

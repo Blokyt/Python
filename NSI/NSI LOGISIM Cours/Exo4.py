@@ -3,7 +3,7 @@ def supprime_espace(machaine):
     machaine = machaine.replace(" ", "")
     return machaine
 
-#machaine = "ceci est un test"
+#machaine = "ceci est un TestFolder"
     
 #print(supprime_espace(machaine))
     
